@@ -124,12 +124,12 @@ top bar navigation -->
                 </a>
                 <div class="dropdown-menu dropdown-menu-right profile-dropdown ">
                     <div class="dropdown-item noti-title">
-                        <h5 class="text-overflow"><small>{{ _('Hello') }}, Admin</small> </h5>
+                        <h5 class="text-overflow"><small>{{ _('Hello') }}, {{ Auth::user()->username }}</small> </h5>
                     </div>
                     <a href="javascript:;" class="dropdown-item notify-item" data-toggle="modal" data-target="#form-modal-profile" data-backdrop="static" data-keyboard="false">
                         <i class="fa fa-user"></i> <span>{{ __('Profile') }}</span>
                     </a>
-                    <a href="#" class="dropdown-item notify-item">
+                    <a href="{{ route('adminLogout') }}" class="dropdown-item notify-item">
                         <i class="fa fa-power-off"></i> <span>{{ _('Logout') }}</span>
                     </a>
                     

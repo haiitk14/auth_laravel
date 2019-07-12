@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use App\Model\Role;
 
 class RoleSTableSeed extends Seeder
 {
@@ -11,6 +12,12 @@ class RoleSTableSeed extends Seeder
      */
     public function run()
     {
-        //
+        Role::query()->delete();
+        $author = Role::create([
+            'name' => 'Supper Administrator', 
+        ]);
+        $editor = Role::create([
+            'name' => 'Administrator', 
+        ]);
     }
 }

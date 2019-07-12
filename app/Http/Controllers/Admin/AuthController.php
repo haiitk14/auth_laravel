@@ -43,9 +43,9 @@ class AuthController extends Controller
         ];
 
         $messages = [
-            'username.required' => __('Vui lòng nhập Tên đăng nhập.'),
-            'password.required' => __('Vui lòng nhập Tên mật khẩu.'),
-            'password.min'      => __('Mật khẩu phải chứa ít nhất 6 ký tự.'),
+            'username.required' => __('The username field is required.'),
+            'password.required' => __('The password field is required.'),
+            'password.min'      => __('Password must contain at least 6 characters.'),
         ];
 
         $validator = Validator::make($request->all(), $rules, $messages);
@@ -59,17 +59,17 @@ class AuthController extends Controller
             'password' => $request->get('password')
         );
 
-        // if (Auth::attempt($userData)) {
+        if (Auth::attempt($userData)) {
             
-        //     if (Auth::user()->is_admin == 0) {
-        //         Auth::logout();
-        //         return response('Unauthorized action.', 403);
-        //     } else {
+            if (Auth::user()->role_id != 1 && Auth::user()->role_id != 2 ) {
+                Auth::logout();
+                return response('Unauthorized action.', 403);
+            } else {
                 return redirect()->intended('/admin');
-        //     }
-        // } else {
-        //     return back()->with('error', __('Tên đăng nhập hoặc mật khẩu không đúng.'));
-        // }
+            }
+        } else {
+            return back()->with('error', __('Username or password is incorrect.'));
+        }
 
     } 
 
@@ -79,7 +79,7 @@ class AuthController extends Controller
      */
     public function logout()
     {
-        // Auth::logout();
+        Auth::logout();
         return redirect('admin/login');
     }
 }
